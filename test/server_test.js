@@ -28,4 +28,27 @@ describe('server.js', function() {
     });
   });
 
+it('should add name on post', function () {
+        chai.request('localhost:3000')
+            .post('/name')
+            .send(JSON.stringify({"name": "test"}))
+            .end(function (err, res) {
+                expect(err).to.be.equal(null);
+                expect(res.status).to.be.equal(201);
+                expect(res.text).to.be.eql('http://localhost:3000/name/1');
+                done();
+            });
+    });
+
+    it('should return name on get', function (done) {
+        chai.request('localhost:3000')
+            .get('/name/1')
+            .end(function (err, res) {
+                expect(err).to.be.equal(null);
+                expect(res.status).to.be.equal(200);
+                expect(res.text).to.be.eql(JSON.stringify({"name": "test"}));
+                done();
+            });
+    });
+
 });
